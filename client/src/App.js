@@ -5,14 +5,18 @@ import Saved from './pages/Saved'
 
 const App = () => {
   return (
-    <div>
-      <Router>
+    <Router>
+      <div>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/saved">Saved</Link>
+        </nav>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/saved" component={Saved} />
         </Switch>
-      </Router>
-    </div>
+      </div>
+    </Router>
   )
 }
 

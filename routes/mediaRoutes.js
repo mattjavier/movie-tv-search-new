@@ -3,7 +3,7 @@ const { Media } = require('../models')
 
 router.get('/media', (req, res) => {
   Media.find()
-    .then(media => res.join(media))
+    .then(media => res.json(media))
     .catch(err => console.log(err))
 })
 
