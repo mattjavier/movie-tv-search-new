@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import MediaContext from '../../utils/MediaContext'
+import Typography from '@material-ui/core/Typography'
+import Form from '../../components/Form'
+import Media from '../../components/Media'
 import API from '../../utils/API'
 
 const Home = () => {
@@ -45,34 +49,24 @@ const Home = () => {
 
   return (
     <>
-      <h1>Search for Movies & TV Shows</h1>
-      <form>
-        <p>
-          <label htmlFor="search">Search</label>
-          <input 
-            type="text" 
-            name="search" 
-            value={mediaState.search}
-            onChange={mediaState.handleInputChange} />
-        </p>
-        <p>
-          <button onClick={mediaState.handleSearchOMDB}>Search OMDB</button>
-        </p>
-      </form>
-      {
-        mediaState.media.length > 0 ? (
-          mediaState.media.map(media => (
-            <div key={media.imdbID}>
-              <img src={media.poster} alt={media.title} />
-              <h3>{media.title}</h3>
-              <h4>Type: {media.type}</h4>
-              <h4>Year: {media.year}</h4>
-              <h5>imdbID: {media.imdbID}</h5>
-              <button onClick={() => mediaState.handleSaveMedia(media.imdbID)}>Save</button>
-            </div>
-          ))
-        ) : null
-      }
+      <hr />
+      <Typography variant="h6">
+        Search for Movies and TV Shows
+      </Typography>
+      <MediaContext.Provider value={mediaState}>
+        <Form />
+        {
+          mediaState.media.length > 0 ? (
+            mediaState.media.map(media => (
+              <Media 
+                key={media.imdbID}
+                media={media}
+                handleSaveMedia={mediaState.handleSaveMedia}
+              />
+            ))
+          ) : null
+        }
+      </MediaContext.Provider>
     </>
   )
 }
